@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharath Online Exam Portal</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+margin-top:15px;
+}
+
+.option{
+display:block;
+margin:10px 0;
+}
+
+#result{
+font-size:24px;
+font-weight:bold;
+color:green;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Online Mock Test</h2>
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<button onclick="nextQuestion()">Next</button>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"Capital of India?",
+options:["Mumbai","Chennai","New Delhi","Kolkata"],
+answer:2
+},
+
+{
+question:"2 + 2 = ?",
+options:["3","4","5","6"],
+answer:1
+},
+
+{
+question:"Percentage of 50 in 200?",
+options:["20%","25%","30%","35%"],
+answer:1
+}
+
+];
+
+let current=0;
+let score=0;
+
+loadQuestion();
+
+function loadQuestion(){
+
+if(current>=questions.length){
+
+document.getElementById("question").style.display="none";
+document.getElementById("options").style.display="none";
+
+document.getElementById("result").innerHTML=
+"Final Score : "+score+" / "+questions.length;
+
+return;
+}
+
+let q=questions[current];
+
+document.getElementById("question").innerHTML=
+(current+1)+". "+q.question;
+
+let html="";
+
+q.options.forEach((opt,index)=>{
+html+=`
+<label class="option">
+<input type="radio" name="answer" value="${index}">
+${opt}
+</label>
+`;
+});
+
+document.getElementById("options").innerHTML=html;
+}
+
+function nextQuestion(){
+
+let selected=
+document.querySelector('input[name="answer"]:checked');
+
+if(selected){
+
+if(parseInt(selected.value)===questions[current].answer){
+score++;
+}
+}
+
+current++;
+
+loadQuestion();
+
+}
+
+</script>
+
+</body>
+</html>
