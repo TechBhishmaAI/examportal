@@ -1,10 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mock Test 1</title>
+<style>
+body{font-family:Arial;padding:20px;background:#f5f5f5}
+.box{max-width:800px;margin:auto;background:white;padding:20px;border-radius:10px}
+#timer{font-size:22px;color:red;font-weight:bold}
+button{padding:10px 20px;margin-top:15px}
+</style>
 </head>
 <body>
-<h1>Mock Test 1</h1>
-<p>Online Exam Ready</p>
+
+<div class="box">
+<h2>MOCK TEST - 1</h2>
+<div id="timer">30:00</div>
+
+<h3 id="question"></h3>
+<div id="options"></div>
+
+<button onclick="nextQuestion()">Next</button>
+
+<h2 id="result"></h2>
+</div>
+
+<script>
+
+let timeLeft=1800;
+
+setInterval(()=>{
+if(timeLeft>0){
+timeLeft--;
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+document.getElementById("timer").innerHTML=
+String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
+}
+},1000);
+
+const questions=[
+
+{question:"25 + 5 × 4 = ?",options:["120","45","40","50"],answer:1},
+{question:"36 ÷ 6 × 3 = ?",options:["18","6","12","24"],answer:0},
+{question:"18 + 12 ÷ 3 = ?",options:["10","22","18","14"],answer:1},
+{question:"50 - 8 × 4 = ?",options:["18","42","10","32"],answer:0},
+{question:"72 ÷ (8 × 3) = ?",options:["3","6","9","12"],answer:0}
+
+];
+
+let current=0;
+let score=0;
+
+function loadQuestion(){
+
+if(current>=questions.length){
+document.getElementById("result").innerHTML=
+"Score : "+score+" / "+questions.length;
+return;
+}
+
+let q=questions[current];
+
+document.getElementById("question").innerHTML=
+(current+1)+". "+q.question;
+
+let html="";
+
+q.options.forEach((o,i)=>{
+html+=`
+<label>
+<input type="radio" name="ans" value="${i}">
+${o}
+</label><br><br>`;
+});
+
+document.getElementById("options").innerHTML=html;
+}
+
+function nextQuestion(){
+
+let selected=document.querySelector('input[name="ans"]:checked');
+
+if(selected){
+if(parseInt(selected.value)===questions[current].answer){
+score++;
+}
+}
+
+current++;
+loadQuestion();
+}
+
+loadQuestion();
+
+</script>
+
 </body>
 </html>
