@@ -304,11 +304,11 @@ Save & Next
 <br>
 
 <button
+id="submitBtn"
 class="btn submit"
-onclick="submitTest()">
-
+onclick="showSummary()"
+style="display:none;">
 Submit Test
-
 </button>
 
 <div id="result"></div>
@@ -635,7 +635,12 @@ ${o}
 document.getElementById(
 "options"
 ).innerHTML = html;
-
+if(current === questions.length-1){
+document.getElementById("submitBtn").style.display="inline-block";
+}
+else{
+document.getElementById("submitBtn").style.display="none";
+}
 updatePalette();
 
 }
@@ -799,7 +804,49 @@ submitTest();
 }
 
 },1000);
+function showSummary(){
 
+saveAnswer();
+
+let answered=0;
+let reviewCount=0;
+let notAnswered=0;
+
+for(let i=0;i<questions.length;i++){
+
+if(answers[i]!=null)
+answered++;
+
+if(review[i])
+reviewCount++;
+
+if(answers[i]==null)
+notAnswered++;
+
+}
+
+document.querySelector(".left").innerHTML=`
+
+<h2>Test Summary</h2>
+
+<p>Total Questions : ${questions.length}</p>
+
+<p>Answered : ${answered}</p>
+
+<p>Not Answered : ${notAnswered}</p>
+
+<p>Marked For Review : ${reviewCount}</p>
+
+<br>
+
+<button onclick="submitTest()"
+style="padding:15px;background:red;color:white;border:none;">
+Final Submit Test
+</button>
+
+`;
+
+}
 function submitTest(){
 
 saveAnswer();
