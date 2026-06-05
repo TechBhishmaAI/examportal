@@ -831,7 +831,11 @@ document.getElementById("options").innerHTML = html;
 }
 
 function saveAnswer(value){
+
 answers[current] = value;
+
+updatePalette();
+
 }
 
 function nextQuestion(){
@@ -858,37 +862,139 @@ current = index;
 loadQuestion();
 
 }
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+
+function loadQuestion(){
+ ...
+}
+
+function saveAnswer(value){
+ answers[current] = value;
+ updatePalette();
+}
+
+function updatePalette(){
+
+ for(let i=0;i<questions.length;i++){
+
+   let btn = document.getElementById("p"+i);
+
+   if(btn){
+
+     if(answers[i] !== null){
+       btn.style.background = "green";
+       btn.style.color = "white";
+     }else{
+       btn.style.background = "red";
+       btn.style.color = "white";
+     }
+
+   }
+ }
+
+}
 
 function createPalette(){
+ ...
+}
+function createPalette(){
 
-let html = "";
+let html="";
 
 for(let i=0;i<questions.length;i++){
 
 html += `
-<button onclick="gotoQuestion(${i})">
+<button
+id="p${i}"
+style="background:red;color:white"
+onclick="gotoQuestion(${i})">
+
 ${i+1}
+
 </button>
 `;
 
 }
 
-document.getElementById("palette").innerHTML = html;
+document.getElementById("palette").innerHTML=html;
 
 }
 
 function submitTest(){
 
-let score = 0;
+let attempted = 0;
+let right = 0;
+let wrong = 0;
 
 for(let i=0;i<questions.length;i++){
 
+if(answers[i] !== null){
+
+attempted++;
+
 if(answers[i] === questions[i].answer){
-score++;
+
+right++;
+
+}else{
+
+wrong++;
+
+}
+
 }
 
 }
 
+let notAttempted =
+questions.length - attempted;
+
+let finalMarks =
+right - (wrong * 0.25);
+
+document.body.innerHTML = `
+
+<div style="font-family:Arial;
+padding:40px;
+text-align:center;">
+
+<h1>TEST SUBMITTED</h1>
+
+<h2>Total Questions : ${questions.length}</h2>
+
+<h2>Attempted : ${attempted}</h2>
+
+<h2>Not Attempted : ${notAttempted}</h2>
+
+<hr>
+
+<h2 style="color:green;">
+Right Answers : ${right}
+</h2>
+
+<h2 style="color:red;">
+Wrong Answers : ${wrong}
+</h2>
+
+<hr>
+
+<h1>
+Final Marks :
+${finalMarks.toFixed(2)}
+/ ${questions.length}
+</h1>
+
+<p>
+( +1 for Correct,
+-0.25 for Wrong )
+</p>
+
+</div>
+
+`;
+
+}
 let percentage =
 ((score/questions.length)*100).toFixed(2);
 
