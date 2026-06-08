@@ -1,129 +1,427 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mock Test Portal</title>
+
+<title>SSC CGL Mini Mock Test 01</title>
 
 <style>
 
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial,sans-serif;
-background:#f4f6f9;
 }
 
-.header{
-background:#1e3a8a;
+body{
+background:#f4f6fb;
+}
+
+.login-page,
+.instructions-page,
+.exam-page,
+.result-page{
+width:100%;
+min-height:100vh;
+}
+
+.instructions-page,
+.exam-page,
+.result-page{
+display:none;
+}
+
+.center-box{
+max-width:500px;
+margin:60px auto;
+background:#fff;
+padding:30px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.15);
+}
+
+h1{
+text-align:center;
+color:#0b3d91;
+margin-bottom:20px;
+}
+
+.input-group{
+margin-bottom:15px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:5px;
+font-weight:bold;
+}
+
+.input-group input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.btn{
+width:100%;
+padding:12px;
+background:#0b3d91;
+color:#fff;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+}
+
+.btn:hover{
+background:#082d6b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+
+<div class="login-page" id="loginPage">
+
+<div class="center-box">
+
+<h1>SSC CGL MOCK TEST</h1>
+
+<div class="input-group">
+<label>Candidate Name</label>
+<input type="text" id="candidateName">
+</div>
+
+<div class="input-group">
+<label>Mobile Number</label>
+<input type="text" id="mobileNumber">
+</div>
+
+<button class="btn" onclick="goToInstructions()">
+Proceed
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function goToInstructions(){
+
+let name =
+document.getElementById("candidateName").value.trim();
+
+if(name===""){
+alert("Please enter candidate name");
+return;
+}
+
+document.getElementById("loginPage").style.display="none";
+document.getElementById("instructionsPage").style.display="block";
+
+}
+</script>
+
+<!-- INSTRUCTIONS PAGE -->
+
+<div class="instructions-page" id="instructionsPage">
+
+<div class="center-box" style="max-width:800px;">
+
+<h1>Instructions</h1>
+
+<p><b>Exam:</b> SSC CGL Mini Mock Test 01</p>
+<br>
+
+<p><b>Total Questions:</b> 50</p>
+<p><b>Duration:</b> 30 Minutes</p>
+<p><b>Negative Marking:</b> -0.25</p>
+
+<br>
+
+<h3>Important Instructions</h3>
+
+<br>
+
+<ul style="padding-left:20px;line-height:2;">
+
+<li>Each question carries 1 mark.</li>
+
+<li>0.25 marks will be deducted for every wrong answer.</li>
+
+<li>Use Next and Previous buttons for navigation.</li>
+
+<li>Question palette can be used to jump directly.</li>
+
+<li>All answers are automatically saved.</li>
+
+<li>Test will auto submit when timer ends.</li>
+
+<li>Click Submit Test after completion.</li>
+
+</ul>
+
+<br>
+
+<button class="btn" onclick="startExam()">
+Start Test
+</button>
+
+</div>
+
+</div>
+
+<!-- EXAM PAGE -->
+
+<div class="exam-page" id="examPage">
+
+</div>
+
+<!-- RESULT PAGE -->
+
+<div class="result-page" id="resultPage">
+
+</div>
+
+<script>
+
+function startExam(){
+
+document.getElementById(
+"instructionsPage"
+).style.display="none";
+
+document.getElementById(
+"examPage"
+).style.display="block";
+
+initExam();
+
+}
+</script>
+
+<style>
+
+/* EXAM LAYOUT */
+
+.exam-header{
+background:#0b3d91;
 color:white;
 padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+flex-wrap:wrap;
 }
 
-.container{
+.exam-title{
+font-size:22px;
+font-weight:bold;
+}
+
+.timer-box{
+background:white;
+color:#0b3d91;
+padding:10px 20px;
+border-radius:8px;
+font-size:22px;
+font-weight:bold;
+}
+
+.exam-container{
 display:flex;
-height:calc(100vh - 70px);
+gap:15px;
+padding:15px;
 }
 
-.left{
-width:75%;
+.question-panel{
+flex:3;
 background:white;
 padding:20px;
+border-radius:10px;
+min-height:500px;
 }
 
-.right{
-width:25%;
-background:#eef2ff;
+.palette-panel{
+flex:1;
+background:white;
 padding:15px;
-overflow:auto;
+border-radius:10px;
 }
 
-.question{
-font-size:22px;
+.question-number{
+font-size:20px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.question-text{
+font-size:18px;
+line-height:1.8;
 margin-bottom:20px;
 }
 
 .option{
-display:block;
-padding:12px;
-margin:10px 0;
 border:1px solid #ccc;
+padding:12px;
 border-radius:8px;
+margin-bottom:10px;
 cursor:pointer;
 }
 
 .option:hover{
-background:#f3f4f6;
+background:#eef2ff;
 }
 
-button{
-padding:10px 18px;
-margin:5px;
+.option input{
+margin-right:10px;
+}
+
+.btn-row{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.small-btn{
+padding:10px 20px;
 border:none;
 border-radius:6px;
 cursor:pointer;
-background:#2563eb;
+font-weight:bold;
 color:white;
 }
 
-.palette{
+.prev-btn{
+background:#607d8b;
+}
+
+.next-btn{
+background:#2563eb;
+}
+
+.review-btn{
+background:#9c27b0;
+}
+
+.submit-btn{
+background:#d32f2f;
+}
+
+.palette-grid{
 display:grid;
 grid-template-columns:repeat(5,1fr);
 gap:8px;
+margin-top:10px;
 }
 
-.palette button{
-background:white;
-color:black;
-border:1px solid #ccc;
+.palette-btn{
+height:40px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+background:#e0e0e0;
+font-weight:bold;
 }
 
-.submit{
-width:100%;
-background:green;
-margin-top:15px;
+@media(max-width:900px){
+
+.exam-container{
+flex-direction:column;
+}
+
 }
 
 </style>
-</head>
 
-<body>
+<!-- EXAM CONTENT -->
 
-<div class="header">
-<h2>MOCK TEST - 60 QUESTIONS</h2>
-<h2 id="timer">45:00</h2>
+<div id="examContent">
+
+<div class="exam-header">
+
+<div>
+
+<div class="exam-title">
+SSC CGL Mini Mock Test 01
 </div>
 
-<div class="container">
+<div id="candidateDisplay">
+Candidate
+</div>
 
-<div class="left">
+</div>
 
-<h3 id="qno"></h3>
+<div class="timer-box">
+⏰ <span id="timer">30:00</span>
+</div>
 
-<div class="question" id="question"></div>
+</div>
 
-<div id="options"></div>
+<div class="exam-container">
 
-<button onclick="prevQuestion()">
+<div class="question-panel">
+
+<div
+class="question-number"
+id="questionNumber">
+
+Question 1
+
+</div>
+
+<div
+class="question-text"
+id="questionText">
+
+Question Loading...
+
+</div>
+
+<div id="optionsContainer">
+
+</div>
+
+<div class="btn-row">
+
+<button
+class="small-btn prev-btn"
+id="prevBtn">
+
 Previous
+
 </button>
 
-<button onclick="nextQuestion()">
+<button
+class="small-btn next-btn"
+id="nextBtn">
+
 Save & Next
+
 </button>
 
-</div>
+<button
+class="small-btn review-btn"
+id="reviewBtn">
 
-<div class="right">
+Mark Review
 
-<h3>Question Palette</h3>
+</button>
 
-<div class="palette" id="palette"></div>
-
-<button class="submit"
-onclick="submitTest()">
+<button
+class="small-btn submit-btn"
+id="submitBtn">
 
 Submit Test
 
@@ -133,706 +431,748 @@ Submit Test
 
 </div>
 
+<div class="palette-panel">
+
+<h3>
+Question Palette
+</h3>
+
+<div
+class="palette-grid"
+id="paletteContainer">
+
+</div>
+
+<br>
+
+<div style="line-height:2;">
+
+🟩 Answered<br>
+🟥 Not Answered<br>
+🟪 Review<br>
+⬜ Not Visited
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
-  const questions = [
+  
+  let currentQuestion = 0;
+
+let userAnswers = {};
+
+let reviewQuestions = {};
+
+let questions = [
 
 {
-q:"AI stands for?",
+q:"A number is increased by 20% and then decreased by 10%. Net percentage change is?",
 options:[
-"Advanced Interface",
-"Artificial Intelligence",
-"Automated Internet",
-"Artificial Integration"
+"8% Increase",
+"10% Increase",
+"12% Increase",
+"2% Increase"
 ],
-answer:1
-},
-
-{
-q:"ATM stands for?",
-options:[
-"Automated Teller Machine",
-"Automatic Transfer Mode",
-"Automated Transfer Method",
-"Automatic Transaction Module"
-],
-answer:0
+answer:0,
+explanation:"Net change = 20 - 10 - (20×10/100) = 8% Increase."
 },
 
 {
-q:"CEO stands for?",
+q:"If A is 20% more than B, then B is what percent less than A?",
 options:[
-"Chief Election Officer",
-"Central Executive Officer",
-"Chief Executive Officer",
-"Chief Examination Officer"
+"16.67%",
+"20%",
+"25%",
+"18%"
 ],
-answer:2
+answer:0,
+explanation:"Difference = 20/120 ×100 = 16.67%."
 },
 
 {
-q:"CPU stands for?",
+q:"72 is what percent of 90?",
 options:[
-"Computer Processing Unit",
-"Central Programming Unit",
-"Central Power Unit",
-"Central Processing Unit"
+"75%",
+"80%",
+"85%",
+"90%"
 ],
-answer:3
+answer:1,
+explanation:"72/90 ×100 = 80%."
 },
 
 {
-q:"GPS stands for?",
+q:"A shopkeeper increases price by 25%. What reduction restores original price?",
 options:[
-"Global Positioning System",
-"Global Processing Service",
-"General Positioning System",
-"Global Power System"
+"20%",
+"25%",
+"15%",
+"10%"
 ],
-answer:0
+answer:0,
+explanation:"25/125 ×100 = 20%."
 },
 
 {
-q:"HTML stands for?",
+q:"20% increase followed by 20% decrease results in?",
 options:[
-"High Text Markup Language",
-"Hyper Text Markup Language",
-"Hyper Transfer Markup Language",
-"Hyper Tool Markup Language"
+"4% decrease",
+"4% increase",
+"No change",
+"8% decrease"
 ],
-answer:1
+answer:0,
+explanation:"Net effect = -4%."
 },
 
 {
-q:"IBM stands for?",
+q:"48 ÷ 6 × (4+2) − 25 = ?",
 options:[
-"Indian Business Machines",
-"Internal Business Machines",
-"International Business Machines",
-"International Banking Machines"
+"23",
+"24",
+"25",
+"26"
 ],
-answer:2
+answer:0,
+explanation:"48÷6=8, 8×6=48, 48−25=23."
 },
 
 {
-q:"LCD stands for?",
+q:"15 + 5 × 4² − 18 ÷ 3 = ?",
 options:[
-"Linear Crystal Display",
-"Liquid Computer Display",
-"Light Crystal Display",
-"Liquid Crystal Display"
+"89",
+"90",
+"91",
+"92"
 ],
-answer:3
+answer:0,
+explanation:"15+80−6 = 89."
 },
 
 {
-q:"NASA stands for?",
+q:"18 ÷ 3 × (12−7) + 8 = ?",
 options:[
-"National Aeronautics and Space Administration",
-"National Air Space Agency",
-"National Aviation Service Authority",
-"National Aeronautical Service Agency"
+"36",
+"38",
+"40",
+"42"
 ],
-answer:0
+answer:1,
+explanation:"6×5+8 = 38."
 },
 
 {
-q:"PIN stands for?",
+q:"96 ÷ 4 × 2 + 10 = ?",
 options:[
-"Personal Internet Number",
-"Personal Information Number",
-"Personal Identification Number",
-"Public Identification Number"
+"48",
+"52",
+"58",
+"60"
 ],
-answer:2
+answer:2,
+explanation:"96÷4=24, 24×2=48, 48+10=58."
 },
 
 {
-q:"RAM stands for?",
+q:"50 − 5 × (6−2) + 4² = ?",
 options:[
-"Read Access Memory",
-"Rapid Access Memory",
-"Random Allocation Memory",
-"Random Access Memory"
+"44",
+"46",
+"48",
+"50"
 ],
-answer:3
+answer:1,
+explanation:"50−20+16 = 46."
 },
 
 {
-q:"URL stands for?",
+q:"Ravi walks 10m North, 15m East, 10m South. Final position?",
 options:[
-"Uniform Resource Locator",
-"Universal Resource Locator",
-"Uniform Resource Link",
-"Universal Resource Link"
+"10m East",
+"15m East",
+"20m East",
+"25m East"
 ],
-answer:0
+answer:1,
+explanation:"North and South cancel. Final = 15m East."
 },
 
 {
-q:"USB stands for?",
+q:"A man walks 8km East and 6km North. Distance from start?",
 options:[
-"Universal Service Bus",
-"Universal Serial Bus",
-"United Service Bus",
-"Universal Storage Bus"
+"10 km",
+"12 km",
+"14 km",
+"15 km"
 ],
-answer:1
+answer:0,
+explanation:"√(8²+6²)=10 km."
 },
 
 {
-q:"VPN stands for?",
+q:"A person faces North and turns right twice. Now facing?",
 options:[
-"Visual Private Network",
-"Virtual Public Network",
-"Virtual Private Network",
-"Virtual Protected Network"
+"East",
+"South",
+"West",
+"North"
 ],
-answer:2
+answer:1,
+explanation:"North → East → South."
+},
+
+];
+{
+q:"A person walks 12m South, then 5m East, then 12m North. Final direction from start?",
+options:[
+"North",
+"South",
+"East",
+"West"
+],
+answer:2,
+explanation:"South and North cancel. Final position is 5m East."
 },
 
 {
-q:"WWW stands for?",
+q:"A person walks 20m North, turns right and walks 15m, then turns right and walks 20m. Final position?",
 options:[
-"World Wireless Web",
-"Wide World Web",
-"World Web Wide",
-"World Wide Web"
+"15m East",
+"15m West",
+"20m East",
+"Start Point"
 ],
-answer:3
+answer:0,
+explanation:"North 20m, East 15m, South 20m. Ends 15m East."
 },
 
 {
-q:"B2B means?",
+q:"A man walks 5km West and 12km South. Distance from starting point?",
 options:[
-"Buyer to Buyer",
-"Business to Buyer",
-"Browser to Browser",
-"Business to Business"
+"13 km",
+"15 km",
+"17 km",
+"19 km"
 ],
-answer:3
+answer:0,
+explanation:"√(5²+12²)=13 km."
 },
 
 {
-q:"B2C means?",
+q:"A person faces East and turns left twice. Now facing?",
 options:[
-"Business to Consumer",
-"Buyer to Consumer",
-"Business to Company",
-"Browser to Consumer"
+"North",
+"South",
+"West",
+"East"
 ],
-answer:0
+answer:2,
+explanation:"East → North → West."
 },
 
 {
-q:"CAD stands for?",
+q:"A is brother of B. B is mother of C. A is related to C as?",
 options:[
-"Computer Analysis Design",
-"Computer-Aided Design",
-"Central Aided Design",
-"Computer Added Design"
+"Father",
+"Uncle",
+"Brother",
+"Grandfather"
 ],
-answer:1
+answer:1,
+explanation:"A is maternal uncle of C."
 },
 
 {
-q:"CSS stands for?",
+q:"P is mother of Q. Q is sister of R. P is related to R as?",
 options:[
-"Computer Style Sheets",
-"Central Style Sheets",
-"Cascading Style Sheets",
-"Cascading System Sheets"
+"Mother",
+"Aunt",
+"Sister",
+"Grandmother"
 ],
-answer:2
+answer:0,
+explanation:"P is mother of both Q and R."
 },
 
 {
-q:"DNS stands for?",
+q:"A is brother of B. B is sister of C. A is related to C as?",
 options:[
-"Data Name Service",
-"Digital Name System",
-"Domain Network Service",
-"Domain Name System"
+"Brother",
+"Cousin",
+"Father",
+"Uncle"
 ],
-answer:3
-},
-    {
-q:"OCR stands for?",
-options:[
-"Optical Character Recognition",
-"Optical Character Reader",
-"Online Character Recognition",
-"Optical Code Recognition"
-],
-answer:0
+answer:0,
+explanation:"A and C are siblings."
 },
 
 {
-q:"PDF stands for?",
+q:"The only son of my father is?",
 options:[
-"Personal Document Format",
-"Portable Document Format",
-"Public Data Format",
-"Portable Data File"
+"My brother",
+"My cousin",
+"Myself",
+"My uncle"
 ],
-answer:1
+answer:2,
+explanation:"Father's only son refers to self."
 },
 
 {
-q:"PNG stands for?",
+q:"P is father of Q. Q is father of R. P is related to R as?",
 options:[
-"Public Network Graphics",
-"Portable New Graphics",
-"Portable Network Graphics",
-"Private Network Graphics"
+"Father",
+"Grandfather",
+"Brother",
+"Uncle"
 ],
-answer:2
+answer:1,
+explanation:"P is grandfather of R."
 },
 
 {
-q:"ROI stands for?",
+q:"If CAT = DBU, then DOG = ?",
 options:[
-"Return Of Income",
-"Revenue On Investment",
-"Rate Of Interest",
-"Return On Investment"
+"EPH",
+"FQI",
+"EOG",
+"DPH"
 ],
-answer:3
+answer:0,
+explanation:"Each letter shifts by +1."
 },
 
 {
-q:"SEO stands for?",
+q:"If APPLE = BQQMF, then MANGO = ?",
 options:[
-"Search Engine Optimization",
-"Search Engine Operation",
-"Search Engine Output",
-"System Engine Optimization"
+"NZOHQ",
+"NZOHP",
+"NZOHP",
+"MYNFP"
 ],
-answer:0
+answer:0,
+explanation:"Each letter shifts by +1."
 },
 
 {
-q:"SQL stands for?",
+q:"If ROAD = URDG, then GAME = ?",
 options:[
-"System Query Language",
-"Structured Query Language",
-"Structured Question Language",
-"Simple Query Language"
+"JDPH",
+"JDPG",
+"KDPH",
+"HDPH"
 ],
-answer:1
+answer:0,
+explanation:"Each letter shifts by +3."
 },
 
 {
-q:"SSD stands for?",
+q:"If DELHI = 45289, then HIDE = ?",
 options:[
-"Secure State Drive",
-"Solid Storage Device",
-"Solid State Drive",
-"System State Drive"
+"8954",
+"8549",
+"8459",
+"9854"
 ],
-answer:2
+answer:0,
+explanation:"H=8, I=9, D=5, E=4."
+  },
+  
+ {
+q:"If PEN = 123 and BOOK = 4567, then BOOKPEN = ?",
+options:[
+"4567123",
+"1234567",
+"4512367",
+"4123567"
+],
+answer:0,
+explanation:"Combine BOOK and PEN codes."
 },
 
 {
-q:"TCP/IP is related to?",
+q:"COMPUTER reversed is?",
 options:[
-"Accounting",
-"Graphics",
-"Printing",
-"Networking"
+"RETUPMOC",
+"RETOPMUC",
+"RETUMPOC",
+"RETCOMPU"
 ],
-answer:3
+answer:0,
+explanation:"Reverse the letters."
 },
 
 {
-q:"XML stands for?",
+q:"If AIR = 123 and CAR = 413, then ARC = ?",
 options:[
-"Extensible Markup Language",
-"Extended Machine Language",
-"Extra Markup Language",
-"Executable Markup Language"
+"143",
+"134",
+"314",
+"341"
 ],
-answer:0
+answer:0,
+explanation:"A=1, R=4, C=3."
 },
 
 {
-q:"GUI stands for?",
+q:"A number is increased by 50% and then decreased by 20%. Net change?",
 options:[
-"Graphic User Internet",
-"Graphical User Interface",
-"General User Interface",
-"Global User Interface"
+"20% Increase",
+"25% Increase",
+"30% Increase",
+"10% Increase"
 ],
-answer:1
+answer:0,
+explanation:"1.5 × 0.8 = 1.2 → 20% increase."
 },
 
 {
-q:"Meenakshi Temple is located in?",
+q:"25% of 640 = ?",
 options:[
-"Chennai",
-"Trichy",
-"Madurai",
-"Salem"
+"140",
+"150",
+"160",
+"170"
 ],
-answer:2
+answer:2,
+explanation:"640 × 25/100 = 160."
 },
 
 {
-q:"Nellaiappar Temple is located in?",
+q:"Successive discounts of 10% and 20% are equivalent to?",
 options:[
-"Madurai",
-"Chennai",
-"Salem",
-"Tirunelveli"
+"28%",
+"30%",
+"32%",
+"25%"
 ],
-answer:3
+answer:0,
+explanation:"Net discount = 10 + 20 − (10×20/100) = 28%."
 },
 
 {
-q:"Ramanathaswamy Temple is located at?",
+q:"80 is what percent of 200?",
 options:[
-"Rameswaram",
-"Madurai",
-"Kanyakumari",
-"Tiruchirapalli"
+"35%",
+"40%",
+"45%",
+"50%"
 ],
-answer:0
+answer:1,
+explanation:"80/200 ×100 = 40%."
 },
 
 {
-q:"Thillai Nataraja Temple is located in?",
+q:"(18 + 12) ÷ 5 × 4 = ?",
 options:[
-"Chennai",
-"Chidambaram",
-"Salem",
-"Vellore"
+"20",
+"22",
+"24",
+"26"
 ],
-answer:1
+answer:2,
+explanation:"30÷5=6, 6×4=24."
 },
 
 {
-q:"ISKCON Temple is located in?",
+q:"64 ÷ 8 + 7 × 3 = ?",
 options:[
-"Delhi",
-"Agra",
-"Vrindavan",
-"Jaipur"
+"27",
+"28",
+"29",
+"30"
 ],
-answer:2
+answer:2,
+explanation:"8 + 21 = 29."
 },
 
 {
-q:"Kashi Vishwanath Temple is in?",
+q:"100 − (20 ÷ 5 × 4) = ?",
 options:[
-"Ayodhya",
-"Lucknow",
-"Prayagraj",
-"Varanasi"
+"82",
+"84",
+"86",
+"88"
 ],
-answer:3
+answer:1,
+explanation:"20÷5=4, 4×4=16, 100−16=84."
 },
 
 {
-q:"Badrinath Temple is located in?",
+q:"A person faces South and turns left. Now facing?",
 options:[
-"Chamoli",
-"Haridwar",
-"Dehradun",
-"Nainital"
+"East",
+"West",
+"North",
+"South"
 ],
-answer:0
+answer:0,
+explanation:"Left turn from South = East."
 },
 
 {
-q:"Gangotri Temple is in?",
+q:"A man walks 3km North, 4km East. Distance from start?",
 options:[
-"Puri",
-"Uttarkashi",
-"Delhi",
-"Jaipur"
+"4 km",
+"5 km",
+"6 km",
+"7 km"
 ],
-answer:1
+answer:1,
+explanation:"3-4-5 right triangle."
 },
 
 {
-q:"Kedarnath Temple is in?",
+q:"If A is father of B and B is sister of C, then C is A's?",
 options:[
-"Chamoli",
-"Dehradun",
-"Rudraprayag",
-"Srinagar"
+"Son/Daughter",
+"Brother",
+"Father",
+"Uncle"
 ],
-answer:2
+answer:0,
+explanation:"C is also child of A."
+  },
+
+  {
+q:"If P is mother of Q and Q is father of R, then P is R's?",
+options:[
+"Mother",
+"Grandmother",
+"Aunt",
+"Sister"
+],
+answer:1,
+explanation:"P is grandmother of R."
 },
 
 {
-q:"Kalighat Mandir is located in?",
+q:"If TRAIN = WUDLQ, then PLANE = ?",
 options:[
-"Delhi",
-"Mumbai",
-"Chennai",
-"Kolkata"
+"SODQH",
+"SODPH",
+"TODQH",
+"RMDOF"
 ],
-answer:3
-},
-    {
-q:"Golden Temple is located in?",
-options:[
-"Amritsar",
-"Patiala",
-"Jalandhar",
-"Ludhiana"
-],
-answer:0
+answer:0,
+explanation:"Each letter shifts by +3."
 },
 
 {
-q:"Brihadeeswara Temple is in?",
+q:"The brother of my father's son is?",
 options:[
-"Madurai",
-"Thanjavur",
-"Trichy",
-"Salem"
+"My cousin",
+"My brother",
+"My uncle",
+"My grandfather"
 ],
-answer:1
+answer:1,
+explanation:"Father's son = self, his brother = my brother."
 },
 
 {
-q:"Virupaksha Temple is located in?",
+q:"45% of 800 = ?",
 options:[
-"Mysuru",
-"Bengaluru",
-"Hampi",
-"Hubli"
+"340",
+"350",
+"360",
+"370"
 ],
-answer:2
+answer:2,
+explanation:"800 × 45/100 = 360."
 },
 
 {
-q:"Sabarimala Temple is located in?",
+q:"A number decreases from 500 to 400. Percentage decrease?",
 options:[
-"Kollam",
-"Kochi",
-"Kannur",
-"Pathanamthitta"
+"10%",
+"15%",
+"20%",
+"25%"
 ],
-answer:3
+answer:2,
+explanation:"100/500 ×100 = 20%."
 },
 
 {
-q:"Konark Sun Temple is located in?",
+q:"72 ÷ 8 × 5 + 10 = ?",
 options:[
-"Konark",
-"Puri",
-"Cuttack",
-"Bhubaneswar"
+"50",
+"55",
+"60",
+"65"
 ],
-answer:0
+answer:1,
+explanation:"72÷8=9, 9×5=45, 45+10=55."
 },
 
 {
-q:"Lotus Temple is located in?",
+q:"200 − 5² × 4 = ?",
 options:[
-"Mumbai",
-"New Delhi",
-"Jaipur",
-"Agra"
+"80",
+"90",
+"100",
+"120"
 ],
-answer:1
+answer:2,
+explanation:"5²=25, 25×4=100, 200−100=100."
 },
 
 {
-q:"Lingaraja Temple is located in?",
+q:"Facing West, a person turns right. Now facing?",
 options:[
-"Puri",
-"Konark",
-"Bhubaneswar",
-"Cuttack"
+"North",
+"South",
+"East",
+"West"
 ],
-answer:2
+answer:0,
+explanation:"Right turn from West = North."
 },
 
 {
-q:"Ram Tirath Temple is located in?",
+q:"A man walks 6km East and 8km North. Distance from start?",
 options:[
-"Patiala",
-"Ludhiana",
-"Bathinda",
-"Amritsar"
+"8 km",
+"9 km",
+"10 km",
+"12 km"
 ],
-answer:3
+answer:2,
+explanation:"√(6²+8²)=10 km."
 },
 
 {
-q:"Vaishno Devi Temple is located in?",
+q:"If CAT = DBU, then FISH = ?",
 options:[
-"Reasi",
-"Jammu",
-"Srinagar",
-"Leh"
+"GJTI",
+"GJSH",
+"GIUJ",
+"HJTI"
 ],
-answer:0
+answer:0,
+explanation:"Each letter shifts by +1."
 },
 
 {
-q:"Angrabadi Temple is located in?",
+q:"If DELHI = 45289, then HELD = ?",
 options:[
-"Ranchi",
-"Khunti",
-"Bokaro",
-"Dhanbad"
+"8542",
+"8524",
+"8452",
+"8425"
 ],
-answer:1
-},
-
-{
-q:"Chennakesava Temple is located in?",
-options:[
-"Mysuru",
-"Mangaluru",
-"Hassan (Belur Taluk)",
-"Udupi"
-],
-answer:2
-},
-
-{
-q:"Gomateshwara Temple is located in?",
-options:[
-"Mysuru",
-"Bengaluru",
-"Hassan",
-"Shravanabelagola"
-],
-answer:3
-},
-
-{
-q:"Tirupati Balaji Temple is located in?",
-options:[
-"Tirumala",
-"Vijayawada",
-"Anantapur",
-"Kurnool"
-],
-answer:0
-},
-
-{
-q:"Kamakhya Temple is located in?",
-options:[
-"Shillong",
-"Guwahati",
-"Agartala",
-"Imphal"
-],
-answer:1
-},
-
-{
-q:"Akshardham Temple is located in?",
-options:[
-"Mumbai",
-"Ahmedabad",
-"Delhi",
-"Jaipur"
-],
-answer:2
-},
-
-{
-q:"Somnath Temple is located in?",
-options:[
-"Dwarka",
-"Rajkot",
-"Junagadh",
-"Somnath"
-],
-answer:3
-},
-
-{
-q:"Amarnath Cave Temple is located in?",
-options:[
-"Pahalgam/Anantnag Region",
-"Srinagar City",
-"Jammu City",
-"Leh"
-],
-answer:0
-},
-
-{
-q:"Shankaracharya Temple is located in?",
-options:[
-"Jammu",
-"Srinagar",
-"Leh",
-"Kargil"
-],
-answer:1
-},
-
-{
-q:"Dwarkadhish Temple is located in?",
-options:[
-"Ahmedabad",
-"Surat",
-"Dwarka",
-"Rajkot"
-],
-answer:2
-},
-
-{
-q:"Mallikarjuna Temple is located in?",
-options:[
-"Kurnool",
-"Vijayawada",
-"Guntur",
-"Srisailam"
-],
-answer:3
+answer:0,
+explanation:"H=8, E=5, L=4, D=2."
 }
 
 ];
-  let current = 0;
-let answers = new Array(questions.length).fill(null);
+
+function initExam(){
+
+let name =
+document.getElementById("candidateName").value;
+
+document.getElementById(
+"candidateDisplay"
+).innerHTML = "Candidate : " + name;
+
+}
+let timeLeft = 30 * 60;
+
+function startTimer(){
+
+let timerInterval = setInterval(function(){
+
+let minutes = Math.floor(timeLeft / 60);
+let seconds = timeLeft % 60;
+
+document.getElementById("timer").innerHTML =
+String(minutes).padStart(2,"0")
++
+":"
++
+String(seconds).padStart(2,"0");
+
+timeLeft--;
+
+if(timeLeft < 0){
+
+clearInterval(timerInterval);
+
+submitTest();
+
+}
+
+},1000);
+
+}
 
 function loadQuestion(){
 
-document.getElementById("qno").innerHTML =
-"Question " + (current + 1) + " of " + questions.length;
+let q = questions[currentQuestion];
 
-document.getElementById("question").innerHTML =
-questions[current].q;
+document.getElementById(
+"questionNumber"
+).innerHTML =
+"Question " +
+(currentQuestion + 1)
++
+" of "
++
+questions.length;
+
+document.getElementById(
+"questionText"
+).innerHTML =
+q.q;
 
 let html = "";
 
-questions[current].options.forEach((opt,index)=>{
+q.options.forEach((option,index)=>{
 
 html += `
+
 <label class="option">
+
 <input
 type="radio"
 name="option"
 value="${index}"
-${answers[current]===index ? "checked" : ""}
+
+${
+userAnswers[currentQuestion]===index
+?
+"checked"
+:
+""
+}
+
 onchange="saveAnswer(${index})">
 
-${String.fromCharCode(65 + index)}.
-${opt}
+${String.fromCharCode(65+index)}.
+${option}
 
 </label>
+
 `;
 
 });
 
-document.getElementById("options").innerHTML = html;
+document.getElementById(
+"optionsContainer"
+).innerHTML = html;
+
 }
 
 function saveAnswer(value){
 
-answers[current] = value;
+userAnswers[currentQuestion] = value;
 
 updatePalette();
 
@@ -840,107 +1180,102 @@ updatePalette();
 
 function nextQuestion(){
 
-if(current < questions.length - 1){
-current++;
+if(currentQuestion <
+questions.length - 1){
+
+currentQuestion++;
+
 loadQuestion();
+
 }
 
 }
 
 function prevQuestion(){
 
-if(current > 0){
-current--;
-loadQuestion();
-}
+if(currentQuestion > 0){
 
-}
+currentQuestion--;
 
-function gotoQuestion(index){
-
-current = index;
 loadQuestion();
 
 }
-let current = 0;
-let answers = new Array(questions.length).fill(null);
 
-function loadQuestion(){
- ...
 }
 
-function saveAnswer(value){
- answers[current] = value;
- updatePalette();
+function jumpQuestion(index){
+
+currentQuestion = index;
+
+loadQuestion();
+
+}
+
+function markReview(){
+
+reviewQuestions[currentQuestion] = true;
+
+updatePalette();
+
 }
 
 function updatePalette(){
 
- for(let i=0;i<questions.length;i++){
-
-   let btn = document.getElementById("p"+i);
-
-   if(btn){
-
-     if(answers[i] !== null){
-       btn.style.background = "green";
-       btn.style.color = "white";
-     }else{
-       btn.style.background = "red";
-       btn.style.color = "white";
-     }
-
-   }
- }
-
-}
-
-function createPalette(){
- ...
-}
-function createPalette(){
-
-let html="";
+let html = "";
 
 for(let i=0;i<questions.length;i++){
 
+let color = "#ffffff";
+
+if(userAnswers[i] !== undefined){
+color = "green";
+}
+
+if(reviewQuestions[i]){
+color = "purple";
+}
+
 html += `
+
 <button
-id="p${i}"
-style="background:red;color:white"
-onclick="gotoQuestion(${i})">
+class="palette-btn"
+style="background:${color};
+color:white;"
+onclick="jumpQuestion(${i})">
 
 ${i+1}
 
 </button>
+
 `;
 
 }
 
-document.getElementById("palette").innerHTML=html;
+document.getElementById(
+"paletteContainer"
+).innerHTML = html;
 
-}
-
+   }
+  
 function submitTest(){
 
-let attempted = 0;
-let right = 0;
+let correct = 0;
 let wrong = 0;
+let attempted = 0;
 
 for(let i=0;i<questions.length;i++){
 
-if(answers[i] !== null){
+if(userAnswers[i] !== undefined){
 
 attempted++;
 
-if(answers[i] === questions[i].answer){
-
-right++;
-
-}else{
-
+if(
+userAnswers[i] === questions[i].answer
+){
+correct++;
+}
+else{
 wrong++;
-
 }
 
 }
@@ -951,43 +1286,185 @@ let notAttempted =
 questions.length - attempted;
 
 let finalMarks =
-right - (wrong * 0.25);
+(correct * 1)
+-
+(wrong * 0.25);
 
-document.body.innerHTML = `
+let percentage =
+(
+(finalMarks / questions.length)
+*
+100
+).toFixed(2);
 
-<div style="font-family:Arial;
-padding:40px;
-text-align:center;">
+document.getElementById(
+"examPage"
+).style.display="none";
 
-<h1>TEST SUBMITTED</h1>
+document.getElementById(
+"resultPage"
+).style.display="block";
 
-<h2>Total Questions : ${questions.length}</h2>
+document.getElementById(
+"resultPage"
+).innerHTML = `
 
-<h2>Attempted : ${attempted}</h2>
-
-<h2>Not Attempted : ${notAttempted}</h2>
-
-<hr>
-
-<h2 style="color:green;">
-Right Answers : ${right}
-</h2>
-
-<h2 style="color:red;">
-Wrong Answers : ${wrong}
-</h2>
-
-<hr>
+<div class="center-box"
+style="max-width:700px;">
 
 <h1>
-Final Marks :
-${finalMarks.toFixed(2)}
-/ ${questions.length}
+SSC CGL MOCK RESULT
 </h1>
 
+<hr><br>
+
+<h3>
+Total Questions :
+${questions.length}
+</h3>
+
+<h3>
+Attempted :
+${attempted}
+</h3>
+
+<h3>
+Not Attempted :
+${notAttempted}
+</h3>
+
+<br>
+
+<h3 style="color:green;">
+Correct :
+${correct}
+</h3>
+
+<h3 style="color:red;">
+Wrong :
+${wrong}
+</h3>
+
+<br>
+
+<h2>
+Final Score :
+${finalMarks.toFixed(2)}
+</h2>
+
+<h2>
+Percentage :
+${percentage}%
+</h2>
+
+<br>
+
+<h3>
+Negative Marking :
+${wrong * 0.25}
+</h3>
+
+<br>
+
+<button
+class="btn"
+onclick="showReview()">
+
+Review Answers
+
+</button>
+
+</div>
+
+`;
+
+}
+
+  
+  
+function showReview(){
+
+let html = `
+
+<div class="center-box"
+style="max-width:900px;">
+
+<h1>
+Answer Review
+</h1>
+
+`;
+
+for(let i=0;i<questions.length;i++){
+
+let userAns =
+userAnswers[i];
+
+let correctAns =
+questions[i].answer;
+
+let status =
+"Not Attempted";
+
+let color =
+"gray";
+
+if(userAns !== undefined){
+
+if(userAns === correctAns){
+
+status = "Correct";
+color = "green";
+
+}else{
+
+status = "Wrong";
+color = "red";
+
+}
+
+}
+
+html += `
+
+<div style="
+border:1px solid #ccc;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+">
+
+<h3>
+Q${i+1}.
+${questions[i].q}
+</h3>
+
 <p>
-( +1 for Correct,
--0.25 for Wrong )
+<b>Your Answer:</b>
+${
+userAns !== undefined
+?
+questions[i].options[userAns]
+:
+"Not Attempted"
+}
+</p>
+
+<p>
+<b>Correct Answer:</b>
+${questions[i].options[correctAns]}
+</p>
+
+<p style="
+color:${color};
+font-weight:bold;
+">
+${status}
+</p>
+
+<p>
+<b>Explanation:</b>
+${questions[i].explanation}
 </p>
 
 </div>
@@ -995,68 +1472,68 @@ ${finalMarks.toFixed(2)}
 `;
 
 }
-let percentage =
-((score/questions.length)*100).toFixed(2);
 
-document.body.innerHTML = `
+html += `
 
-<div style="
-font-family:Arial;
-padding:40px;
-text-align:center;
-">
+<button
+class="btn"
+onclick="location.reload()">
 
-<h1>TEST SUBMITTED SUCCESSFULLY</h1>
+Restart Test
 
-<h2>Score : ${score}/${questions.length}</h2>
-
-<h2>Percentage : ${percentage}%</h2>
-
-<h3>
-Correct Answers : ${score}
-</h3>
-
-<h3>
-Wrong Answers : ${questions.length-score}
-</h3>
+</button>
 
 </div>
 
 `;
 
-}
-
-let totalTime = 45 * 60;
-
-setInterval(()=>{
-
-let minutes =
-Math.floor(totalTime / 60);
-
-let seconds =
-totalTime % 60;
-
-document.getElementById("timer").innerHTML =
-String(minutes).padStart(2,"0")
-+
-":"
-+
-String(seconds).padStart(2,"0");
-
-if(totalTime > 0){
-
-totalTime--;
-
-}else{
-
-submitTest();
+document.getElementById(
+"resultPage"
+).innerHTML = html;
 
 }
 
-},1000);
+/* BUTTON EVENTS */
 
-createPalette();
+document.getElementById(
+"nextBtn"
+).onclick = nextQuestion;
+
+document.getElementById(
+"prevBtn"
+).onclick = prevQuestion;
+
+document.getElementById(
+"reviewBtn"
+).onclick = markReview;
+
+document.getElementById(
+"submitBtn"
+).onclick = submitTest;
+
+/* START EXAM */
+
+function initExam(){
+
+let name =
+document.getElementById(
+"candidateName"
+).value;
+
+document.getElementById(
+"candidateDisplay"
+).innerHTML =
+"Candidate : " + name;
+
 loadQuestion();
+
+updatePalette();
+
+startTimer();
+
+}
+
+/* FILE END */
 
 </script>
 
